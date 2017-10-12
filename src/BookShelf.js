@@ -5,7 +5,8 @@ import Book from './Book'
 class BookShelf extends Component {
   static propTypes = {
     bookList: PropTypes.array.isRequired,
-    bookShelfTitle: PropTypes.string.isRequired
+    bookShelfTitle: PropTypes.string.isRequired,
+    changeShelf: PropTypes.func.isRequired
   }
 
   render() {
@@ -13,9 +14,8 @@ class BookShelf extends Component {
       return (
         <li key={book.title}>
           <Book
-            bookTitle={book.title}
-            bookCoverUrl={book.coverUrl}
-            bookAuthor={book.author}
+            bookObj={book}
+            changeShelf={this.props.changeShelf}
           />
         </li>
       )

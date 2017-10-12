@@ -7,7 +7,8 @@ class Search extends Component {
   static propTypes = {
     searchBooks: PropTypes.array.isRequired,
     query: PropTypes.string.isRequired,
-    onUpdateQuery: PropTypes.func.isRequired
+    onUpdateQuery: PropTypes.func.isRequired,
+    addToShelf: PropTypes.func.isRequired
   }
 
   render() {
@@ -15,9 +16,8 @@ class Search extends Component {
       return (
         <li key={book.title + Math.random()}>
           <Book
-            bookTitle={book.title}
-            bookAuthor={book.author}
-            bookCoverUrl={book.coverUrl}
+            bookObj={book}
+            changeShelf={this.props.addToShelf}
           />
         </li>
       )
