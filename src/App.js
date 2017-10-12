@@ -66,7 +66,6 @@ class BooksApp extends React.Component {
         if (res.error) {
           return [];
         } else {
-          console.log(res)
           return res.map(bookResult => {
             return {
               title: bookResult.title,
@@ -149,6 +148,7 @@ class BooksApp extends React.Component {
             <Search
               searchBooks={this.state.searchBooks}
               query={this.state.query}
+              clearQuery={this.clearQuery}
               onUpdateQuery={this.updateQuery}
               addToShelf={this.addToShelf}
             />

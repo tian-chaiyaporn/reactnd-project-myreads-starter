@@ -7,6 +7,7 @@ class Search extends Component {
   static propTypes = {
     searchBooks: PropTypes.array.isRequired,
     query: PropTypes.string.isRequired,
+    clearQuery: PropTypes.func.isRequired,
     onUpdateQuery: PropTypes.func.isRequired,
     addToShelf: PropTypes.func.isRequired
   }
@@ -26,7 +27,7 @@ class Search extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to='/' className='close-search'/>
+          <Link to='/' className='close-search' onClick={e => this.props.clearQuery()}/>
           <div className="search-books-input-wrapper">
             <input
               type="text"
