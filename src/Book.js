@@ -23,8 +23,8 @@ class Book extends Component {
             </select>
           </div>
         </div>
-        <div className="book-title">this.props.bookTitle</div>
-        <div className="book-authors">this.props.bookAuthor</div>
+        <div className="book-title">{this.props.bookTitle}</div>
+        <div className="book-authors">{this.props.bookAuthor}</div>
       </div>
     )
   }
