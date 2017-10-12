@@ -3,7 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import { Route, Link } from 'react-router-dom'
 import './App.css'
 import BookShelf from './BookShelf'
-import Book from './Book'
+import SearchResults from './SearchResults'
 
 class BooksApp extends React.Component {
   state = {
@@ -62,12 +62,11 @@ class BooksApp extends React.Component {
         if (!res) {
           return;
         } else {
-          console.log(res)
           return res.map(bookResult => {
             return {
               title: bookResult.title,
               coverUrl: bookResult.imageLinks.thumbnail,
-              author: bookResult.authors ? bookResult.authors.reduce((a, b) => a + ', ' + b) :  'unknown'
+              author: bookResult.authors ? bookResult.authors.reduce((a, b) => a + ', ' + b) : 'unknown'
             }
           })
         }
@@ -82,18 +81,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const returnBooks = this.state.searchBooks.map(book => {
-      return (
-        <li key={book.title + Math.random()}>
-          <Book
-            bookTitle={book.title}
-            bookAuthor={book.author}
-            bookCoverUrl={book.coverUrl}
-          />
-        </li>
-      )
-    })
-
     return (
       <div className="app">
 
@@ -126,25 +113,11 @@ class BooksApp extends React.Component {
         />
 
         <Route exact path='/search' render={() => (
-            <div className="search-books">
-              <div className="search-books-bar">
-                <Link to='/' className='close-search'/>
-                <div className="search-books-input-wrapper">
-                  <input
-                    type="text"
-                    value={this.state.query}
-                    onChange={(e) => this.updateQuery(e.target.value)}
-                    placeholder="Search by title or author"
-                  />
-
-                </div>
-              </div>
-              <div className="search-books-results">
-                <ol className="books-grid">
-                  {returnBooks}
-                </ol>
-              </div>
-            </div>
+            <SearchResults
+              searchBooks={this.state.searchBooks}
+              query={this.state.query}
+              onUpdateQuery={this.updateQuery}
+            />
           )}
         />
 
