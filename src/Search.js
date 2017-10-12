@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 
-class SearchResults extends Component {
+class Search extends Component {
   static propTypes = {
     searchBooks: PropTypes.array.isRequired,
     query: PropTypes.string.isRequired,
@@ -46,4 +46,4 @@ class SearchResults extends Component {
   }
 }
 
-export default SearchResults
+export default Search

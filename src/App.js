@@ -3,7 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import { Route, Link } from 'react-router-dom'
 import './App.css'
 import BookShelf from './BookShelf'
-import SearchResults from './SearchResults'
+import Search from './Search'
 
 class BooksApp extends React.Component {
   state = {
@@ -56,12 +56,17 @@ class BooksApp extends React.Component {
   }
 
   updateQuery = (query) => {
+    if (query === '') {
+      this.clearQuery();
+      return;
+    }
     this.setState({ query: query.trim() })
     BooksAPI.search(query)
       .then(res => {
-        if (!res) {
-          return;
+        if (res.error) {
+          return [];
         } else {
+          console.log(res)
           return res.map(bookResult => {
             return {
               title: bookResult.title,
@@ -78,6 +83,7 @@ class BooksApp extends React.Component {
 
   clearQuery = () => {
     this.setState({ query: '' })
+    this.setState({ searchBooks: [] })
   }
 
   render() {
@@ -113,7 +119,7 @@ class BooksApp extends React.Component {
         />
 
         <Route exact path='/search' render={() => (
-            <SearchResults
+            <Search
               searchBooks={this.state.searchBooks}
               query={this.state.query}
               onUpdateQuery={this.updateQuery}
