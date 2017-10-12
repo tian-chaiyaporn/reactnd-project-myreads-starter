@@ -11,7 +11,7 @@ class BookShelf extends Component {
   render() {
     const books = this.props.bookList.map(book => {
       return (
-        <li>
+        <li key={book.title}>
           <Book
             bookTitle={book.title}
             bookCoverUrl={book.coverUrl}
