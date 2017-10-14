@@ -60,7 +60,7 @@ class BooksApp extends React.Component {
       this.clearQuery();
       return;
     }
-    this.setState({ query: query.trim() })
+    this.setState({ query: query })
     BooksAPI.search(query)
       .then(res => {
         if (res.error) {
@@ -69,7 +69,7 @@ class BooksApp extends React.Component {
           return res.map(bookResult => {
             return {
               title: bookResult.title,
-              coverUrl: bookResult.imageLinks.thumbnail,
+              coverUrl: bookResult.imageLinks ? bookResult.imageLinks.thumbnail : 'http://via.placeholder.com/128x193?text=No%20Cover',
               author: bookResult.authors ? bookResult.authors.reduce((a, b) => a + ', ' + b) : 'unknown',
               shelf: 'none'
             }
