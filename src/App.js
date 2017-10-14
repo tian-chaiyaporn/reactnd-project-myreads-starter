@@ -1,6 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import { Route, Link } from 'react-router-dom'
+import { Route, Link, Switch } from 'react-router-dom'
 import './App.css'
 import BookShelf from './BookShelf'
 import Search from './Search'
@@ -112,49 +112,57 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-
-        <Route exact path="/" render={() => (
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  <BookShelf
-                    bookShelfTitle='Currently Reading'
-                    bookList={this.state.bookList.filter(book => book.shelf === 'currentlyReading')}
-                    changeShelf={this.changeShelf}
-                  />
-                  <BookShelf
-                    bookShelfTitle='Want to Read'
-                    bookList={this.state.bookList.filter(book => book.shelf === 'wantToRead')}
-                    changeShelf={this.changeShelf}
-                  />
-                  <BookShelf
-                    bookShelfTitle='Read'
-                    bookList={this.state.bookList.filter(book => book.shelf === 'read')}
-                    changeShelf={this.changeShelf}
-                  />
+        <Switch>
+          <Route exact path="/" render={() => (
+              <div className="list-books">
+                <div className="list-books-title">
+                  <h1>MyReads</h1>
+                </div>
+                <div className="list-books-content">
+                  <div>
+                    <BookShelf
+                      bookShelfTitle='Currently Reading'
+                      bookList={this.state.bookList.filter(book => book.shelf === 'currentlyReading')}
+                      changeShelf={this.changeShelf}
+                    />
+                    <BookShelf
+                      bookShelfTitle='Want to Read'
+                      bookList={this.state.bookList.filter(book => book.shelf === 'wantToRead')}
+                      changeShelf={this.changeShelf}
+                    />
+                    <BookShelf
+                      bookShelfTitle='Read'
+                      bookList={this.state.bookList.filter(book => book.shelf === 'read')}
+                      changeShelf={this.changeShelf}
+                    />
+                  </div>
+                </div>
+                <div className="open-search">
+                  <Link to='/search' />
                 </div>
               </div>
-              <div className="open-search">
-                <Link to='/search' />
+            )}
+          />
+
+          <Route exact path='/search' render={() => (
+              <Search
+                searchBooks={this.state.searchBooks}
+                query={this.state.query}
+                clearQuery={this.clearQuery}
+                onUpdateQuery={this.updateQuery}
+                addToShelf={this.addToShelf}
+              />
+            )}
+          />
+
+          <Route render={() => (
+              <div>
+                <h1>Sorry, This Page Cannot Be Found</h1>
+                <Link to='/'>Back To Home</Link>
               </div>
-            </div>
-          )}
-        />
-
-        <Route exact path='/search' render={() => (
-            <Search
-              searchBooks={this.state.searchBooks}
-              query={this.state.query}
-              clearQuery={this.clearQuery}
-              onUpdateQuery={this.updateQuery}
-              addToShelf={this.addToShelf}
-            />
-          )}
-        />
-
+            )}
+          />
+        </Switch>
       </div>
     );
   }
