@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import shortid from 'shortid';
 
 class Search extends Component {
   static propTypes = {
@@ -15,7 +16,7 @@ class Search extends Component {
   render() {
     const returnBooks = this.props.searchBooks.map(book => {
       return (
-        <li key={book.title + Math.random()}>
+        <li key={shortid.generate()}>
           <Book
             bookObj={book}
             changeShelf={this.props.addToShelf}

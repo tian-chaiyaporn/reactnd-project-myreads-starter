@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import Book from './Book'
+import shortid from 'shortid';
 
 class BookShelf extends Component {
   static propTypes = {
@@ -12,7 +13,7 @@ class BookShelf extends Component {
   render() {
     const books = this.props.bookList.map(book => {
       return (
-        <li key={book.title}>
+        <li key={shortid.generate()}>
           <Book
             bookObj={book}
             changeShelf={this.props.changeShelf}
