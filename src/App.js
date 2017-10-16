@@ -6,10 +6,13 @@ import BookShelf from './BookShelf'
 import Search from './Search'
 
 class BooksApp extends React.Component {
-  state = {
-    bookList: [],
-    query: '',
-    searchBooks: []
+  constructor() {
+    super()
+    this.state = {
+      bookList: [],
+      query: '',
+      searchBooks: []
+    };
   }
 
   componentDidMount() {
@@ -55,6 +58,13 @@ class BooksApp extends React.Component {
         }
       })
       .then((bookArray) => {
+        bookArray.map(book => {
+          const matchBookInShelf = this.state.bookList.filter(b => b.id === book.id);
+          if (matchBookInShelf.length > 0) {
+            book.shelf = matchBookInShelf[0].shelf
+          }
+          return book;
+        })
         this.setState({searchBooks: bookArray})
       })
   }
