@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import { Debounce } from 'react-throttle'
 
 function Search({searchBooks, query, clearQuery, onUpdateQuery, addToShelf}) {
   const returnBooks = searchBooks.map(book => {
@@ -20,12 +21,14 @@ function Search({searchBooks, query, clearQuery, onUpdateQuery, addToShelf}) {
       <div className="search-books-bar">
         <Link to='/' className='close-search' onClick={e => clearQuery()}/>
         <div className="search-books-input-wrapper">
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => onUpdateQuery(e.target.value)}
-            placeholder="Search by title or author"
-          />
+          <Debounce time="400" handler="onChange">
+            <input
+              type="text"
+              // value={query} -- seems to be a bug with react-throttle library: issue#7
+              onChange={(e) => onUpdateQuery(e.target.value)}
+              placeholder="Search by title or author"
+            />
+          </Debounce>
         </div>
       </div>
       <div className="search-books-results">
